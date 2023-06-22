@@ -1,8 +1,9 @@
 import React from 'react';
 import { Stack, Typography } from '@mui/material';
-import { ConditionProp, DefaultStrengthConditionProps, SimpleConditionProp, StrengthConditionProps } from './StrengthConditions.types';
+import { BaseConditionProp, DefaultConditionProps, SimpleConditionProp, StrengthConditionProps } from './StrengthConditions.types';
 import { green, red } from '@mui/material/colors';
 import { Circle, Done } from '@mui/icons-material';
+import { ConditionDefaultComponent, ContainerDefaultComponent } from './defaults';
 
 export function SimpleCondition({ label, satisfied }: SimpleConditionProp) {
   
@@ -12,47 +13,43 @@ export function SimpleCondition({ label, satisfied }: SimpleConditionProp) {
         ? <Done fontSize="small" sx={{ color: green[300] }}/>
         : <Circle fontSize="small" sx={{ color: red[300] }}/>
       }
-      <Typography>{label}</Typography>
+      {typeof label === "string"
+        ? <Typography>{label}</Typography>
+        : label
+      }
     </Stack>
   );
 }
 
 export function StrengthConditions({
   conditions,
-  ConditionComponent = SimpleCondition,
-  conditionComponentProps = null,
-  ContainerComponent = Stack,
-  containerComponentProps = null
-}: DefaultStrengthConditionProps): React.ReactElement;
+  ConditionComponent = ConditionDefaultComponent,
+  ContainerComponent = ContainerDefaultComponent,
+}: DefaultConditionProps): React.ReactElement;
 
-export function StrengthConditions<ConditionPropType extends ConditionProp>({
+export function StrengthConditions<ConditionPropType extends BaseConditionProp>({
   conditions,
   ConditionComponent,
-  conditionComponentProps = null,
-  ContainerComponent = Stack,
-  containerComponentProps = null
+  ContainerComponent = ContainerDefaultComponent,
 }: StrengthConditionProps<ConditionPropType>): React.ReactElement;
 
-export function StrengthConditions<ConditionPropType extends ConditionProp>(
-  props: DefaultStrengthConditionProps | StrengthConditionProps<ConditionPropType>
+export function StrengthConditions<ConditionPropType extends BaseConditionProp>(
+  props: DefaultConditionProps | StrengthConditionProps<ConditionPropType>
 ): React.ReactElement {
 
   // Coolest TS feature
   const {
     conditions,
-    ConditionComponent = SimpleCondition,
-    conditionComponentProps = null,
-    ContainerComponent = Stack,
-    containerComponentProps = null
+    ConditionComponent = ConditionDefaultComponent,
+    ContainerComponent = ContainerDefaultComponent,
   } = props;
   const FinalConditionComponent = ConditionComponent as React.ComponentType<ConditionPropType | SimpleConditionProp>;
 
   return (
-    <ContainerComponent {...containerComponentProps}>
+    <ContainerComponent>
       {conditions.map((props) =>
         <FinalConditionComponent
           {...props}
-          {...conditionComponentProps}
         />
       )}
     </ContainerComponent>

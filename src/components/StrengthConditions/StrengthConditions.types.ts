@@ -1,23 +1,20 @@
-export interface ConditionProp {
-    label: string,
+export interface BaseConditionProp {
     satisfied: boolean
 }
 
-export interface SimpleConditionProp extends ConditionProp {
+export interface SimpleConditionProp extends BaseConditionProp {
+    label: string | React.ReactElement
 }
 
-export interface DefaultStrengthConditionProps {
+interface StaticConditionProps {
     conditions: SimpleConditionProp[],
-    ConditionComponent?: React.ComponentType<SimpleConditionProp>,
-    conditionComponentProps?: any,
-    ContainerComponent?: React.ComponentType<{children?: React.ReactNode}>,
-    containerComponentProps?: any
+    ContainerComponent?: React.ComponentType<{children?: React.ReactNode}>
 }
 
-export interface StrengthConditionProps<ConditionPropType extends ConditionProp> {
-    conditions: ConditionPropType[],
-    ConditionComponent: React.ComponentType<ConditionPropType>,
-    conditionComponentProps?: any,
-    ContainerComponent?: React.ComponentType<{children?: React.ReactNode}>,
-    containerComponentProps?: any
+export interface DefaultConditionProps extends StaticConditionProps {
+    ConditionComponent?: React.ComponentType<SimpleConditionProp>
+}
+
+export interface StrengthConditionProps<ConditionPropType extends BaseConditionProp> extends StaticConditionProps {
+    ConditionComponent: React.ComponentType<ConditionPropType>
 }
