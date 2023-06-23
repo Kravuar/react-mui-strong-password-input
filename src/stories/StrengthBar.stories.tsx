@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Box, IconButton, Stack } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
-import { StrengthBar} from '../components/StrengthBar/StrengthBar';
-import { BarProps } from "../components/StrengthBar/StrengthBar.types";
+import { StrengthBar } from '../components/StrengthBar/StrengthBar';
+import { BaseBarProps } from "../components/StrengthBar/StrengthBar.types";
 
 export default { title: "StrengthBar", component: StrengthBar };
 
@@ -20,7 +20,7 @@ export function DefaultLinearBar() {
         setLevel(newLevel);
     }
     return (
-        <Box>
+        <Stack>
             <Stack direction="row" justifyContent="center">
                 <IconButton onClick={() => handleClick(-1)}>
                     <ArrowBack />
@@ -35,12 +35,12 @@ export function DefaultLinearBar() {
                 currentLevel: level
             }}
             />
-        </Box>
+        </Stack>
     );
 };
 
 export function CustomStrengthBar() {
-    interface TestProps extends BarProps {
+    interface TestProps extends BaseBarProps {
         x: number
     }
 

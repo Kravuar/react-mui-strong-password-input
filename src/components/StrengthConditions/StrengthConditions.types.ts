@@ -7,14 +7,15 @@ export interface SimpleConditionProp extends BaseConditionProp {
 }
 
 interface StaticConditionProps {
-    conditions: SimpleConditionProp[],
     ContainerComponent?: React.ComponentType<{children?: React.ReactNode}>
 }
 
 export interface DefaultConditionProps extends StaticConditionProps {
+    conditions: SimpleConditionProp[],
     ConditionComponent?: React.ComponentType<SimpleConditionProp>
 }
 
 export interface StrengthConditionProps<ConditionPropType extends BaseConditionProp> extends StaticConditionProps {
+    conditions: ConditionPropType[],
     ConditionComponent: React.ComponentType<ConditionPropType>
 }

@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 import { BaseBarProps } from "../StrengthBar/StrengthBar.types";
 import { BaseConditionProp } from '../StrengthConditions/StrengthConditions.types';
 import { BarDefaultProps } from "../StrengthBar/defaults";
-import { ConditionDefaultProps } from "../StrengthConditions/defaults";
+import { ConditionDefaultComponentProps } from "../StrengthConditions/defaults";
 
 export interface Condition<ConditionComponentProp extends BaseConditionProp> {
     name: string,
@@ -16,13 +16,6 @@ export interface SecurityLevel<BarComponentProps extends BaseBarProps> {
     label: string | React.ReactElement,
     conditionsRequired: number,
     conditionComponentProps: Omit<BarComponentProps, keyof BaseBarProps>
-}
-
-export interface InputProps {
-    value: string,
-    placeholder?: string,
-    onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
-    hidden?: boolean
 }
 
 export interface StrongPasswordChangeEvent extends ChangeEvent<HTMLInputElement> {
@@ -48,16 +41,16 @@ export interface DefaultStrongPasswordInputPropsWithBar<ConditionComponentProp e
 
 export interface DefaultStrongPasswordInputPropsWithConditions<BarComponentProps extends BaseBarProps> extends StaticStrongPasswordProps {
     securityLevels: SecurityLevel<BarComponentProps>[],
-    conditions: Condition<ConditionDefaultProps>[],
+    conditions: Condition<ConditionDefaultComponentProps>[],
     StrengthBarComponent: React.ComponentType<BarComponentProps>,
-    ConditionComponent?: React.ComponentType<ConditionDefaultProps>,
+    ConditionComponent?: React.ComponentType<ConditionDefaultComponentProps>,
 }
 
 export interface DefaultStrongPasswordInputPropsWithBarAndConditions extends StaticStrongPasswordProps {
     securityLevels: SecurityLevel<BarDefaultProps>[],
-    conditions: Condition<ConditionDefaultProps>[],
+    conditions: Condition<ConditionDefaultComponentProps>[],
     StrengthBarComponent?: React.ComponentType<BarDefaultProps>,
-    ConditionComponent?: React.ComponentType<ConditionDefaultProps>,
+    ConditionComponent?: React.ComponentType<ConditionDefaultComponentProps>,
 }
 
 export interface StrongPasswordInputProps<BarComponentProps extends BaseBarProps, ConditionComponentProp extends BaseConditionProp> extends StaticStrongPasswordProps{

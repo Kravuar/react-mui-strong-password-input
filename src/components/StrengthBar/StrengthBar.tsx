@@ -1,30 +1,9 @@
 import React from 'react';
-import { LinearProgress, Stack, Typography } from '@mui/material';
 import { BaseBarProps, DefaultStrengthBarProps, LinearBarProps, StrengthBarProps } from './StrengthBar.types';
-import { BarDefaultComponent } from './defaults';
+import LinearBar from './LinearBar';
 
-export function LinearBar({ background, barColor, levels, currentLevel, label }: LinearBarProps) {
-  const value = (currentLevel / levels) * 100;
-
-  return (
-    <Stack direction="row">
-      <LinearProgress
-        value={value}
-        variant="determinate"
-        sx={{
-          background: background,
-          "& .MuiLinearProgress-barColorPrimary": {
-            backgroundColor: barColor,
-          }
-        }}
-      />
-      {typeof label === "string"
-        ? <Typography>{label}</Typography>
-        : label
-      }
-    </Stack>
-  );
-}
+export const BarDefaultComponent = LinearBar;
+export type BarDefaultComponentProps = LinearBarProps;
 
 export function StrengthBar({
   BarComponent = BarDefaultComponent,
@@ -42,7 +21,7 @@ export function StrengthBar<BarPropsType extends BaseBarProps>(
 
   // Coolest TS feature
   const { BarComponent = BarDefaultComponent, barComponentProps } = props;
-  const FinalComponent = BarComponent as React.ComponentType<BarPropsType | LinearBarProps>;
+  const FinalComponent = BarComponent as React.ComponentType<BarPropsType | BarDefaultComponentProps>;
 
   return <FinalComponent {...barComponentProps} />;
 }

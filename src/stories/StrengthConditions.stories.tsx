@@ -1,6 +1,6 @@
 import React from "react";
 import { StrengthConditions } from '../components/StrengthConditions/StrengthConditions';
-import { ConditionProp } from "../components/StrengthConditions/StrengthConditions.types";
+import { BaseConditionProp } from "../components/StrengthConditions/StrengthConditions.types";
 
 export default { title: "StrengthConditions", component: StrengthConditions };
 
@@ -31,8 +31,9 @@ export function DefaultStrengthConditions() {
 };
 
 export function CustomStrengthBar() {
-    interface TestProps extends ConditionProp {
-        x: string
+    interface TestProps extends BaseConditionProp {
+        x: string,
+        label: string | React.ReactElement
     }
 
     function TestCondition({ x, label, satisfied }: TestProps) {
@@ -43,10 +44,6 @@ export function CustomStrengthBar() {
     return (
         <StrengthConditions<TestProps> 
             ConditionComponent={TestCondition}
-            containerComponentProps={{
-                direction: "row",
-                spacing: 5
-            }}
             conditions={[
                 {
                     label: "first",
