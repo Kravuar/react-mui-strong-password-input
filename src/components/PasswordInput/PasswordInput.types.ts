@@ -11,9 +11,11 @@ export interface SimplePasswordInputProps extends BasePasswordInputProps {
     variant?: TextFieldVariants,
 }
 
+export type PasswordInputDefaultComponentProps = SimplePasswordInputProps;
+
 export interface DefaultPasswordInputProps {
-    InputComponent?: React.ComponentType<SimplePasswordInputProps>,
-    inputComponentProps: SimplePasswordInputProps
+    InputComponent?: React.ComponentType<PasswordInputDefaultComponentProps>,
+    inputComponentProps: PasswordInputDefaultComponentProps
 }
 
 export interface PasswordInputProps<InputPropsType extends BasePasswordInputProps> {

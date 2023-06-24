@@ -9,9 +9,11 @@ export interface LinearBarProps extends BaseBarProps {
     label?: string | React.ReactElement,
 }
 
+export type BarDefaultComponentProps = LinearBarProps;
+
 export interface DefaultStrengthBarProps {
-    BarComponent?: React.ComponentType<LinearBarProps>,
-    barComponentProps: LinearBarProps
+    BarComponent?: React.ComponentType<BarDefaultComponentProps>,
+    barComponentProps: BarDefaultComponentProps
 }
 
 export interface StrengthBarProps<BarPropsType extends BaseBarProps> {

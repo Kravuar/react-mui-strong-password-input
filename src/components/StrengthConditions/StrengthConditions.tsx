@@ -1,10 +1,9 @@
 import React from 'react';
-import { BaseConditionProp, DefaultConditionProps, SimpleConditionProp, StrengthConditionProps } from './StrengthConditions.types';
+import { BaseConditionProp, ConditionDefaultComponentProps, DefaultConditionProps, StrengthConditionProps } from './StrengthConditions.types';
 import SimpleCondition from './SimpleCondition';
 import { Stack } from '@mui/material';
 
 export const ConditionDefaultComponent = SimpleCondition;
-export type ConditionDefaultComponentProps = SimpleConditionProp;
 export const ContainerDefaultComponent = Stack;
 
 export function StrengthConditions({
