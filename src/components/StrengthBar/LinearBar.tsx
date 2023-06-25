@@ -2,7 +2,7 @@ import React from "react";
 import { LinearProgress, Stack, Typography } from "@mui/material";
 import { LinearBarProps } from "./StrengthBar.types";
 
-export default function LinearBar({ background, barColor, levels, currentLevel, label }: LinearBarProps) {
+export default function LinearBar({ background, barColor, levels, currentLevel }: LinearBarProps) {
     const value = (currentLevel / levels) * 100;
 
     return (
@@ -18,10 +18,6 @@ export default function LinearBar({ background, barColor, levels, currentLevel, 
                     }
                 }}
             />
-            {typeof label === "string"
-                ? <Typography>{label}</Typography>
-                : label
-            }
         </Stack>
     );
 }
