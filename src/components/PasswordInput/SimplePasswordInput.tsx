@@ -4,7 +4,7 @@ import { SimplePasswordInputProps } from "./PasswordInput.types";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function SimplePasswordInput({ value, onChange, sx, variant }: SimplePasswordInputProps) {
-    const [hidden, setHidden] = useState(false);
+    const [hidden, setHidden] = useState(true);
 
     const hiddenHandler = () => setHidden(!hidden);
     

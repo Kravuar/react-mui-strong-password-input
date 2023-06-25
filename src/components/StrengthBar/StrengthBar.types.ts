@@ -5,8 +5,7 @@ export interface BaseBarProps {
 
 export interface LinearBarProps extends BaseBarProps {
     barColor: string,
-    background?: string,
-    label?: string | React.ReactElement,
+    background?: string
 }
 
 export type BarDefaultComponentProps = LinearBarProps;

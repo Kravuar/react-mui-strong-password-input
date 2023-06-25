@@ -10,18 +10,22 @@ export function DefaultStrengthConditions() {
         <StrengthConditions 
             conditions={[
                 {
+                    name: "first",
                     label: "first",
                     satisfied: false,
                 },
                 {
+                    name: "second",
                     label: "second",
                     satisfied: false,
                 },
                 {
+                    name: "third",
                     label: "third",
                     satisfied: true,
                 },
                 {
+                    name: "fourth",
                     label: "fourth",
                     satisfied: false,
                 },
@@ -46,21 +50,25 @@ export function CustomStrengthBar() {
             ConditionComponent={TestCondition}
             conditions={[
                 {
+                    name: "first",
                     label: "first",
                     satisfied: false,
                     x: "WE'RE DONE"
                 },
                 {
+                    name: "second",
                     label: "second",
                     satisfied: false,
                     x: "WE'RE DONE"
                 },
                 {
+                    name: "third",
                     label: "third",
                     satisfied: true,
                     x: "WE'RE SO BACK"
                 },
                 {
+                    name: "fourth",
                     label: "fourth",
                     satisfied: false,
                     x: "WE'RE DONE"

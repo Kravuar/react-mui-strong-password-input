@@ -32,8 +32,8 @@ export function StrengthConditions<ConditionComponentPropType extends BaseCondit
 
   return (
     <ContainerComponent>
-      {conditions.map((props, idx) =>
-        <FinalConditionComponent key={idx}
+      {conditions.map(props =>
+        <FinalConditionComponent key={props.name}
           {...props}
         />
       )}

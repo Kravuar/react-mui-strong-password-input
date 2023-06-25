@@ -1,11 +1,10 @@
-import { ChangeEvent } from "react";
 import { BarDefaultComponentProps, BaseBarProps } from "../StrengthBar/StrengthBar.types";
 import { BaseConditionProp, ConditionDefaultComponentProps } from '../StrengthConditions/StrengthConditions.types';
 import { BasePasswordInputProps, PasswordInputDefaultComponentProps } from "../PasswordInput/PasswordInput.types";
 
 export interface Condition<ConditionComponentProp extends BaseConditionProp> {
     name: string,
-    validate: (password: string) => boolean,
+    validator: (password: string) => boolean,
     conditionComponentProps: Omit<ConditionComponentProp, keyof BaseConditionProp>
 }
 
@@ -15,7 +14,7 @@ export interface SecurityLevel<BarComponentProps extends BaseBarProps> {
     barComponentProps: Omit<BarComponentProps, keyof BaseBarProps>
 }
 
-export interface StrongPasswordChangeEvent extends ChangeEvent<HTMLInputElement> {
+export interface StrongPasswordChangeEvent extends React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> {
     securityLevel: string,
     satisfiedConditions: string[]
 }
@@ -25,7 +24,6 @@ interface StaticStrongPasswordProps {
     showConditions?: boolean,
     onChange?: (event: StrongPasswordChangeEvent) => void,
     ConditionContainerComponent?: React.ComponentType<{ children?: React.ReactNode }>,
-    conditionContainerComponentProps?: any,
     StrongPasswordContainerComponent?: React.ComponentType<{ children?: React.ReactNode }>,
     strongPasswordContainerComponentProps?: any
 }

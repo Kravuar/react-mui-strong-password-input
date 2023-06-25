@@ -1,4 +1,5 @@
 export interface BaseConditionProp {
+    name: string,
     satisfied: boolean
 }
 
