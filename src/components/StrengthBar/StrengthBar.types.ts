@@ -1,21 +1,19 @@
-export interface BaseBarProps {
+export interface StrengthBarBaseProps {
     currentLevel: number,
     levels: number
 }
 
-export interface LinearBarProps extends BaseBarProps {
+export interface StrengthBarDefaultComponentProps extends StrengthBarBaseProps {
     barColor: string,
     background?: string
 }
 
-export type BarDefaultComponentProps = LinearBarProps;
-
 export interface DefaultStrengthBarProps {
-    BarComponent?: React.ComponentType<BarDefaultComponentProps>,
-    barComponentProps: BarDefaultComponentProps
+    BarComponent?: React.ComponentType<StrengthBarDefaultComponentProps>,
+    barComponentProps: StrengthBarDefaultComponentProps
 }
 
-export interface StrengthBarProps<BarPropsType extends BaseBarProps> {
+export interface StrengthBarProps<BarPropsType extends StrengthBarBaseProps> {
     BarComponent: React.ComponentType<BarPropsType>,
     barComponentProps: BarPropsType
 }

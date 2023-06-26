@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { IconButton, Stack } from "@mui/material";
+import { IconButton, LinearProgress, Stack } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { StrengthBar } from '../components/StrengthBar/StrengthBar';
-import { BaseBarProps } from "../components/StrengthBar/StrengthBar.types";
+import { StrengthBarBaseProps } from "../components/StrengthBar/StrengthBar.types";
 
 export default { title: "StrengthBar", component: StrengthBar };
 
@@ -39,21 +39,39 @@ export function DefaultLinearBar() {
     );
 };
 
-export function CustomStrengthBar() {
-    interface TestProps extends BaseBarProps {
-        x: number
+export function MUIStrengthBar() {
+    interface LinearBarProps extends StrengthBarBaseProps {
+        barColor: string,
+        background?: string
     }
 
-    function TestBar({ x, currentLevel, levels }: TestProps) {
+    function LinearBar({ background, barColor, levels, currentLevel }: LinearBarProps) {
+        const value = (currentLevel / levels) * 100;
+
         return (
-            <div>{x} {currentLevel} {levels}</div>
+            <Stack direction="row">
+                <LinearProgress
+                    value={value}
+                    variant="determinate"
+                    sx={{
+                        width: "100%",
+                        background: background,
+                        "& .MuiLinearProgress-barColorPrimary": {
+                            backgroundColor: barColor,
+                        }
+                    }}
+                />
+            </Stack>
         );
     }
+
     return (
-        <StrengthBar<TestProps> BarComponent={TestBar} barComponentProps={{
-            levels: 999,
-            currentLevel: 999,
-            x: 5
-        }} />
+        <StrengthBar
+            BarComponent={LinearBar}
+            barComponentProps={{
+                levels: 4,
+                currentLevel: 2,
+                barColor: "green"
+            }} />
     );
 }

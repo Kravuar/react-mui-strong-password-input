@@ -1,25 +1,23 @@
 import React from 'react';
-import { BarDefaultComponentProps, BaseBarProps, DefaultStrengthBarProps, StrengthBarProps } from './StrengthBar.types';
-import LinearBar from './LinearBar';
+import { StrengthBarBaseProps, DefaultStrengthBarProps, StrengthBarDefaultComponentProps, StrengthBarProps } from './StrengthBar.types';
+import StrengthBarDefault from './StrengthBarDefault';
 
-export const BarDefaultComponent = LinearBar;
-
-export function StrengthBar({
-  BarComponent = BarDefaultComponent,
-  barComponentProps
-}: DefaultStrengthBarProps): React.ReactElement;
-
-export function StrengthBar<BarPropsType extends BaseBarProps>(
+export function StrengthBar<BarPropsType extends StrengthBarBaseProps>(
   props: StrengthBarProps<BarPropsType>
 ): React.ReactElement;
 
-export function StrengthBar<BarPropsType extends BaseBarProps>(
+export function StrengthBar({
+  BarComponent = StrengthBarDefault,
+  barComponentProps
+}: DefaultStrengthBarProps): React.ReactElement;
+
+export function StrengthBar<BarPropsType extends StrengthBarBaseProps>(
   props: DefaultStrengthBarProps | StrengthBarProps<BarPropsType>
 ): React.ReactElement {
 
   // Coolest TS feature
-  const { BarComponent = BarDefaultComponent, barComponentProps } = props;
-  const FinalComponent = BarComponent as React.ComponentType<BarPropsType | BarDefaultComponentProps>;
+  const { BarComponent = StrengthBarDefault, barComponentProps } = props;
+  const FinalComponent = BarComponent as React.ComponentType<BarPropsType | StrengthBarDefaultComponentProps>;
 
   return <FinalComponent {...barComponentProps} />;
 }

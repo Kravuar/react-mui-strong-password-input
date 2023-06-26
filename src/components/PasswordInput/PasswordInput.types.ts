@@ -1,24 +1,18 @@
-import { Theme } from "@emotion/react"
-import { SxProps, TextFieldVariants } from "@mui/material"
-
-export interface BasePasswordInputProps {
+export interface PasswordInputBaseProps {
     value: string,
     onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
 }
 
-export interface SimplePasswordInputProps extends BasePasswordInputProps {
-    sx?: SxProps<Theme>,
-    variant?: TextFieldVariants,
+export interface PasswordInputDefaultComponentProps extends PasswordInputBaseProps {
+    placeholder?: string
 }
-
-export type PasswordInputDefaultComponentProps = SimplePasswordInputProps;
 
 export interface DefaultPasswordInputProps {
     InputComponent?: React.ComponentType<PasswordInputDefaultComponentProps>,
     inputComponentProps: PasswordInputDefaultComponentProps
 }
 
-export interface PasswordInputProps<InputPropsType extends BasePasswordInputProps> {
+export interface PasswordInputProps<InputPropsType extends PasswordInputBaseProps> {
     InputComponent: React.ComponentType<InputPropsType>,
     inputComponentProps: InputPropsType
 }

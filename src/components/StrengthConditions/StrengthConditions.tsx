@@ -1,42 +1,66 @@
 import React from 'react';
-import { BaseConditionProp, ConditionDefaultComponentProps, DefaultConditionProps, StrengthConditionProps } from './StrengthConditions.types';
-import SimpleCondition from './SimpleCondition';
-import { Stack } from '@mui/material';
+import StrengthConditionDefault from './StrengthConditionDefault';
+import ContainerDefault from '../Container/ContainerDefault';
+import { StrengthConditionBaseProps, DefaultStrengthConditionsProps, StrengthConditionsProps, StrengthConditionsPropsWithDefaultCondition, StrengthConditionsPropsWithDefaultContainer, StrengthConditionDefaultComponentProps } from './StrengthConditions.types';
+import { ContainerBaseProps, ContainerDefaultComponentProps } from '../Container/Container.types';
+import { Container } from '../Container/Container';
 
-export const ConditionDefaultComponent = SimpleCondition;
-export const ContainerDefaultComponent = Stack;
+export function StrengthConditions
+<
+  ConditionPropType extends StrengthConditionBaseProps,
+  ContainerPropType extends ContainerBaseProps
+> (props: StrengthConditionsProps<ConditionPropType, ContainerPropType>): React.ReactElement;
+
+export function StrengthConditions<ConditionPropType extends StrengthConditionBaseProps>({
+  ContainerComponent = ContainerDefault,
+  ...other
+}: StrengthConditionsPropsWithDefaultContainer<ConditionPropType>): React.ReactElement;
+
+export function StrengthConditions<ContainerPropType extends ContainerBaseProps>({
+  ConditionComponent = StrengthConditionDefault,
+  ...other
+}: StrengthConditionsPropsWithDefaultCondition<ContainerPropType>): React.ReactElement;
 
 export function StrengthConditions({
-  conditions,
-  ConditionComponent = ConditionDefaultComponent,
-  ContainerComponent = ContainerDefaultComponent,
-}: DefaultConditionProps): React.ReactElement;
+  ConditionComponent = StrengthConditionDefault,
+  ContainerComponent = ContainerDefault,
+  ...other
+}: DefaultStrengthConditionsProps): React.ReactElement;
 
-export function StrengthConditions<ConditionComponentPropType extends BaseConditionProp>({
-  conditions,
-  ConditionComponent,
-  ContainerComponent = ContainerDefaultComponent,
-}: StrengthConditionProps<ConditionComponentPropType>): React.ReactElement;
-
-export function StrengthConditions<ConditionComponentPropType extends BaseConditionProp>(
-  props: DefaultConditionProps | StrengthConditionProps<ConditionComponentPropType>
-): React.ReactElement {
+export function StrengthConditions
+  <
+    ConditionPropType extends StrengthConditionBaseProps,
+    ContainerPropType extends ContainerBaseProps
+  >(
+    props: StrengthConditionsProps<ConditionPropType, ContainerBaseProps>
+      | StrengthConditionsPropsWithDefaultContainer<ConditionPropType>
+      | StrengthConditionsPropsWithDefaultCondition<ContainerBaseProps>
+      | DefaultStrengthConditionsProps
+  ): React.ReactElement {
 
   // Coolest TS feature
   const {
     conditions,
-    ConditionComponent = ConditionDefaultComponent,
-    ContainerComponent = ContainerDefaultComponent,
+    ConditionComponent = StrengthConditionDefault,
+    ContainerComponent = ContainerDefault,
+    containerComponentProps
   } = props;
-  const FinalConditionComponent = ConditionComponent as React.ComponentType<ConditionComponentPropType | ConditionDefaultComponentProps>;
 
+  const FinalConditionComponent = ConditionComponent as React.ComponentType<ConditionPropType | StrengthConditionDefaultComponentProps>;
+  const FinalContainerComponent = ContainerComponent as React.ComponentType<ContainerPropType | ContainerDefaultComponentProps>;
+  const finalContainerProps = {
+    ...containerComponentProps,
+    children: conditions.map(props =>
+      <FinalConditionComponent key={props.name}
+        {...props}
+      />
+    )
+  } as ContainerPropType | ContainerDefaultComponentProps;
+  
   return (
-    <ContainerComponent>
-      {conditions.map(props =>
-        <FinalConditionComponent key={props.name}
-          {...props}
-        />
-      )}
-    </ContainerComponent>
+    <Container
+      ContainerComponent={FinalContainerComponent}
+      containerComponentProps={finalContainerProps}
+    />
   );
 }

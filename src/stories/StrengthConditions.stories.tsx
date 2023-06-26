@@ -1,6 +1,9 @@
 import React from "react";
 import { StrengthConditions } from '../components/StrengthConditions/StrengthConditions';
-import { BaseConditionProp } from "../components/StrengthConditions/StrengthConditions.types";
+import { StrengthConditionBaseProps } from "../components/StrengthConditions/StrengthConditions.types";
+import { Stack, Typography } from "@mui/material";
+import { Circle, Done } from "@mui/icons-material";
+import { green, red } from "@mui/material/colors";
 
 export default { title: "StrengthConditions", component: StrengthConditions };
 
@@ -34,45 +37,57 @@ export function DefaultStrengthConditions() {
     );
 };
 
-export function CustomStrengthBar() {
-    interface TestProps extends BaseConditionProp {
-        x: string,
+export function MUIConditions() {
+    interface SimpleConditionProp extends StrengthConditionBaseProps {
         label: string | React.ReactElement
     }
 
-    function TestCondition({ x, label, satisfied }: TestProps) {
+    function SimpleCondition({ label, satisfied }: SimpleConditionProp) {
         return (
-            <div>{x} {label} {satisfied}</div>
+            <Stack direction="row" spacing={1}>
+                {satisfied
+                    ? <Done fontSize="small" sx={{ color: green[300] }} />
+                    : <Circle fontSize="small" sx={{ color: red[300] }} />
+                }
+                {typeof label === "string"
+                    ? <Typography>{label}</Typography>
+                    : label
+                }
+            </Stack>
         );
     }
     return (
-        <StrengthConditions<TestProps> 
-            ConditionComponent={TestCondition}
+        <StrengthConditions
+            ConditionComponent={SimpleCondition}
+            ContainerComponent={Stack}
+            containerComponentProps={{
+                spacing: 3,
+                direction: "column",
+                sx: {
+                    background: red[100]
+                }
+            }}
             conditions={[
                 {
                     name: "first",
                     label: "first",
                     satisfied: false,
-                    x: "WE'RE DONE"
                 },
                 {
                     name: "second",
                     label: "second",
                     satisfied: false,
-                    x: "WE'RE DONE"
                 },
                 {
                     name: "third",
                     label: "third",
                     satisfied: true,
-                    x: "WE'RE SO BACK"
                 },
                 {
                     name: "fourth",
                     label: "fourth",
                     satisfied: false,
-                    x: "WE'RE DONE"
-                },
+                }
             ]}
         />
     );

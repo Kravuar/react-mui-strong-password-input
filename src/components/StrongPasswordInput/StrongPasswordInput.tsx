@@ -2,54 +2,60 @@ import React, { useState } from 'react'
 import { PasswordInput, PasswordInputDefaultComponent } from '../PasswordInput';
 import { BarDefaultComponent, StrengthBar } from '../StrengthBar';
 import { ConditionDefaultComponent, StrengthConditions } from '../StrengthConditions';
-import { DefaultStrongPasswordInputProps, SecurityLevel, StrongPasswordChangeEvent, StrongPasswordInputPropsWithDefaultBarAndConditionComponents, StrongPasswordInputPropsWithDefaultBarComponent, StrongPasswordInputPropsWithDefaultConditionComponent, StrongPasswordInputPropsWithDefaultInputAndBarComponents, StrongPasswordInputPropsWithDefaultInputAndConditionComponents, StrongPasswordInputPropsWithDefaultInputComponent } from './StrongPasswordInput.types';
-import { BarDefaultComponentProps, BaseBarProps } from '../StrengthBar/StrengthBar.types';
-import { BaseConditionProp, ConditionDefaultComponentProps } from '../StrengthConditions/StrengthConditions.types';
-import { BasePasswordInputProps, PasswordInputDefaultComponentProps } from '../PasswordInput/PasswordInput.types';
+import { DefaultStrongPasswordInputProps, SecurityLevel, StrongPasswordChangeEvent, StrongPasswordInputPropsWithDefaultBarAndConditionComponents, StrongPasswordInputPropsWithDefaultBarComponent, StrongPasswordInputPropsWithDefaultConditionComponent, StrongPasswordInputPropsWithDefaultInputAndBarComponents, StrongPasswordInputPropsWithDefaultInputAndConditionComponents, StrongPasswordInputPropsWithDefaultInputComponent, StrongPasswordInputProps } from './StrongPasswordInput.types';
+import { BarDefaultComponentProps, StrengthBarBaseProps } from '../StrengthBar/StrengthBar.types';
+import { StrengthConditionBaseProps, ConditionDefaultComponentProps } from '../StrengthConditions/StrengthConditions.types';
+import { PasswordInputBaseProps, PasswordInputDefaultComponentProps } from '../PasswordInput/PasswordInput.types';
 import { Stack } from '@mui/material';
 
 export const StrongPasswordContainerDefaultComponent = Stack;
 
 export function StrongPasswordInput
-  <BarComponentProps extends BaseBarProps,
-    ConditionComponentProps extends BaseConditionProp
+  <InputComponentProps extends PasswordInputBaseProps,
+    BarComponentProps extends StrengthBarBaseProps,
+    ConditionComponentProps extends StrengthConditionBaseProps
+  >(props: StrongPasswordInputProps<InputComponentProps, BarComponentProps, ConditionComponentProps>): React.ReactElement;
+
+export function StrongPasswordInput
+  <BarComponentProps extends StrengthBarBaseProps,
+    ConditionComponentProps extends StrengthConditionBaseProps
   >({
     PasswordInputComponent = PasswordInputDefaultComponent,
     ...other
   }: StrongPasswordInputPropsWithDefaultInputComponent<BarComponentProps, ConditionComponentProps>): React.ReactElement;
 
 export function StrongPasswordInput
-  <InputComponentProps extends BasePasswordInputProps,
-    ConditionComponentProps extends BaseConditionProp
+  <InputComponentProps extends PasswordInputBaseProps,
+    ConditionComponentProps extends StrengthConditionBaseProps
   >({
     StrengthBarComponent = BarDefaultComponent,
     ...other
   }: StrongPasswordInputPropsWithDefaultBarComponent<InputComponentProps, ConditionComponentProps>): React.ReactElement;
 
 export function StrongPasswordInput
-  <InputComponentProps extends BasePasswordInputProps,
-    BarComponentProps extends BaseBarProps
+  <InputComponentProps extends PasswordInputBaseProps,
+    BarComponentProps extends StrengthBarBaseProps
   >({
     ConditionComponent = ConditionDefaultComponent,
     ...other
   }: StrongPasswordInputPropsWithDefaultConditionComponent<InputComponentProps, BarComponentProps>): React.ReactElement;
 
 export function StrongPasswordInput
-  <ConditionComponentProps extends BaseConditionProp>({
+  <ConditionComponentProps extends StrengthConditionBaseProps>({
     PasswordInputComponent = PasswordInputDefaultComponent,
     StrengthBarComponent = BarDefaultComponent,
     ...other
   }: StrongPasswordInputPropsWithDefaultInputAndBarComponents<ConditionComponentProps>): React.ReactElement;
 
 export function StrongPasswordInput
-  <BarComponentProps extends BaseBarProps>({
+  <BarComponentProps extends StrengthBarBaseProps>({
     PasswordInputComponent = PasswordInputDefaultComponent,
     ConditionComponent = ConditionDefaultComponent,
     ...other
   }: StrongPasswordInputPropsWithDefaultInputAndConditionComponents<BarComponentProps>): React.ReactElement;
 
 export function StrongPasswordInput
-  <InputComponentProps extends BasePasswordInputProps>({
+  <InputComponentProps extends PasswordInputBaseProps>({
     StrengthBarComponent = BarDefaultComponent,
     ConditionComponent = ConditionDefaultComponent,
     ...other
@@ -63,10 +69,11 @@ export function StrongPasswordInput({
 }: DefaultStrongPasswordInputProps): React.ReactElement;
 
 export function StrongPasswordInput
-<InputComponentProps extends BasePasswordInputProps,
-BarComponentProps extends BaseBarProps,
-ConditionComponentProps extends BaseConditionProp
->(props: StrongPasswordInputPropsWithDefaultInputComponent<BarComponentProps, ConditionComponentProps>
+  <InputComponentProps extends PasswordInputBaseProps,
+    BarComponentProps extends StrengthBarBaseProps,
+    ConditionComponentProps extends StrengthConditionBaseProps
+  >(props: StrongPasswordInputProps<InputComponentProps, BarComponentProps, ConditionComponentProps>
+    | StrongPasswordInputPropsWithDefaultInputComponent<BarComponentProps, ConditionComponentProps>
     | StrongPasswordInputPropsWithDefaultBarComponent<InputComponentProps, ConditionComponentProps>
     | StrongPasswordInputPropsWithDefaultConditionComponent<InputComponentProps, BarComponentProps>
     | StrongPasswordInputPropsWithDefaultInputAndBarComponents<ConditionComponentProps>
@@ -96,7 +103,7 @@ ConditionComponentProps extends BaseConditionProp
     const newPassword = event.target.value;
     const newCheckedConditions = getCheckedConditions(newPassword);
     const newSecurityLevel = getSecurityLevel(newCheckedConditions);
-    
+
     setPassword(newPassword);
     setCheckedConditions(newCheckedConditions);
     setSecurityLevel(newSecurityLevel);
@@ -106,29 +113,29 @@ ConditionComponentProps extends BaseConditionProp
         ...event,
         securityLevel: newSecurityLevel.name,
         satisfiedConditions: newCheckedConditions
-                                .filter(condition => condition.satisfied)
-                                .map(condition => condition.name),
+          .filter(condition => condition.satisfied)
+          .map(condition => condition.name),
       };
       onChange(userEvent);
     }
   }
 
   function getCheckedConditions(password: string): (ConditionComponentProps | ConditionDefaultComponentProps)[] {
-    return conditions.map(condition => 
-      ({
-        name: condition.name,
-        satisfied: condition.validator(password),
-        ...condition.conditionComponentProps
-      })
+    return conditions.map(condition =>
+    ({
+      name: condition.name,
+      satisfied: condition.validator(password),
+      ...condition.conditionComponentProps
+    })
     ) as (ConditionComponentProps | ConditionDefaultComponentProps)[];
-  } 
+  }
 
   function getSecurityLevel(checkedConditions: (ConditionComponentProps | ConditionDefaultComponentProps)[]): SecurityLevel<BarComponentProps> | SecurityLevel<BarDefaultComponentProps> {
     const satisfiedConditions = checkedConditions.filter(condition => condition.satisfied).length;
     return (securityLevels as (SecurityLevel<BarComponentProps> | SecurityLevel<BarDefaultComponentProps>)[])
-              .filter(securityLevel => securityLevel.conditionsRequired >= satisfiedConditions)
-              .reduce((min, level) => (level.conditionsRequired < min.conditionsRequired ? level : min));
-;
+      .filter(securityLevel => securityLevel.conditionsRequired >= satisfiedConditions)
+      .reduce((min, level) => (level.conditionsRequired < min.conditionsRequired ? level : min));
+    ;
   }
 
   const FinalInputComponent = PasswordInputComponent as React.ComponentType<InputComponentProps | PasswordInputDefaultComponentProps>;
@@ -140,7 +147,7 @@ ConditionComponentProps extends BaseConditionProp
     onChange: handleChange,
     ...passwordInputComponentProps
   } as InputComponentProps | PasswordInputDefaultComponentProps;
-  
+
   const finalBarComponentProps: BarComponentProps | BarDefaultComponentProps = {
     levels: securityLevels.length - 1,
     currentLevel: securityLevels.findIndex(level => level.name === securityLevel.name),
@@ -151,7 +158,7 @@ ConditionComponentProps extends BaseConditionProp
     <StrongPasswordContainerComponent {...strongPasswordContainerComponentProps}>
       <PasswordInput
         InputComponent={FinalInputComponent}
-        inputComponentProps={finalInputComponentProps} 
+        inputComponentProps={finalInputComponentProps}
       />
       {showStrengthBar &&
         <StrengthBar
