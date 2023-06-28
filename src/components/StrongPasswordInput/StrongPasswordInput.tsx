@@ -5,7 +5,7 @@ import { SecurityLevel, StrongPasswordChangeEvent, StrongPasswordInputProps } fr
 import { Conditions } from '../Condition';
 import { ConditionBaseProps } from '../Condition/Condition.types';
 
-export function StrongPasswordInput
+export default function StrongPasswordInput
   <InputComponentProps extends InputBaseProps,
     BarComponentProps extends BarBaseProps,
     ConditionComponentProps extends ConditionBaseProps,
