@@ -20,6 +20,7 @@ export interface StrongPasswordChangeEvent extends React.ChangeEvent<HTMLInputEl
 }
 
 interface StaticStrongPasswordProps {
+    value?: string,
     showStrengthBar?: boolean,
     showConditions?: boolean,
     onChange?: (event: StrongPasswordChangeEvent) => void

@@ -12,6 +12,7 @@ export default function StrongPasswordInput
     ConditionContainerComponentProps,
     StrongPasswordContainerComponentProps
   >({
+    value,
     showStrengthBar = true,
     showConditions = true,
     onChange,
@@ -28,7 +29,7 @@ export default function StrongPasswordInput
     barComponentProps,
     conditionComponentProps
   }: StrongPasswordInputProps<InputComponentProps, BarComponentProps, ConditionComponentProps, ConditionContainerComponentProps, StrongPasswordContainerComponentProps>): React.ReactElement {
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(value || "");
   const [checkedConditions, setCheckedConditions] = useState(getCheckedConditions(password));
   const [securityLevel, setSecurityLevel] = useState(getSecurityLevel(checkedConditions));
 
@@ -94,6 +95,7 @@ export default function StrongPasswordInput
             ConditionComponent={ConditionComponent}
             ConditionContainerComponent={ConditionContainerComponent}
             conditionContainerComponentProps={conditionContainerComponentProps}
+            conditionProps={conditionComponentProps}
           />
         : undefined
     ],

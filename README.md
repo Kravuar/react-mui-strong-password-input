@@ -49,8 +49,9 @@ Main interface of the strong password input
 ### StrongPasswordInput
 | Property | Type | Default | Description |
 |:---|:---|:---|:---|
-|showStrengthBar?|boolean,|true|flag to render strength bar|
-|showConditions?|boolean,|true|flag to render conditions|
+|value|string|undefined|value to be passed into input component|
+|showStrengthBar?|boolean|true|flag to render strength bar|
+|showConditions?|boolean|true|flag to render conditions|
 |onChange?|(event: StrongPasswordChangeEvent) => void|undefined|onChange handler with previously defined change even|
 |securityLevels|SecurityLevel<BarComponentProps>[]|undefined|possible security levels (like invalid, weak, normal, strong...)|
 |conditions|Condition<ConditionComponentProps>[]|undefined|conditions that to be checked upon password change|
