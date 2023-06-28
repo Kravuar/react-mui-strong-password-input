@@ -70,7 +70,7 @@ Main interface of the strong password input
 ### Example with default components:
 ```ts
 import React from "react";
-import { BarDefault, InputDefault, ConditionDefault, ContainerDefault, StrongPasswordInput } from "../components";
+import { BarDefault, InputDefault, ConditionDefault, ContainerDefault, StrongPasswordInput } from "react-strong-password-input";
 
 function Default() {
 
