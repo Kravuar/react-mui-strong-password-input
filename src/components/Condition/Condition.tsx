@@ -28,8 +28,7 @@ export function Conditions<ConditionComponentProps extends ConditionBaseProps, C
 }: ConditionsProps<ConditionComponentProps, ConditionContainerComponentProps>) {
 
     const finalConditionContainerProps = {
-        children: conditions.map(props => <ConditionComponent key={props.name} {...props} />),
-        ...conditionProps,
+        children: conditions.map(props => <ConditionComponent key={props.name} {...conditionProps} {...props} />),
         ...conditionContainerComponentProps
     } as React.PropsWithChildren<ConditionContainerComponentProps>;
 

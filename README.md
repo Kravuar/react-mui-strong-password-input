@@ -21,7 +21,7 @@ Only children are required (optional, actually) a for the container
 | Property | Type | Default | Description |
 |:---|:---|:---|:---|
 |value|string|undefined|value prop as in controlled input|
-|onChange|React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>|undefined|onChange event handler|
+|onChange|React.ChangeEventHandler<HTMLInputElement \| HTMLTextAreaElement>|undefined|onChange event handler|
 
 ## StrongPasswordInput Interfaces
 
@@ -80,11 +80,13 @@ function Default() {
 
     return (
         <StrongPasswordInput
+            // Couldn't find a way to provide those components as default values
             InputComponent={InputDefault}
             BarComponent={BarDefault}
             ConditionComponent={ConditionDefault}
             ConditionContainerComponent={ContainerDefault}
             StrongPasswordContainerComponent={ContainerDefault}
+            // 
             strongPasswordContainerComponentProps={{
                 spacing: 1
             }}

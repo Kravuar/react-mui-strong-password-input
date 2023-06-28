@@ -90,11 +90,11 @@ export function StrongPasswordInput
         : undefined,
       showConditions
         ? <Conditions
-          conditions={checkedConditions}
-          ConditionComponent={ConditionComponent}
-          ConditionContainerComponent={ConditionContainerComponent}
-          conditionContainerComponentProps={conditionContainerComponentProps}
-        />
+            conditions={checkedConditions}
+            ConditionComponent={ConditionComponent}
+            ConditionContainerComponent={ConditionContainerComponent}
+            conditionContainerComponentProps={conditionContainerComponentProps}
+          />
         : undefined
     ],
     ...strongPasswordContainerComponentProps
