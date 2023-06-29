@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { StrongPasswordInput } from '../components/StrongPasswordInput/StrongPasswordInput';
 import InputDefault from '../components/Input/Input';
 import BarDefault from '../components/Bar/Bar';
 import ConditionDefault from '../components/Condition/Condition';
@@ -11,13 +10,14 @@ import { Circle, Done, Visibility, VisibilityOff } from '@mui/icons-material';
 import { BarBaseProps } from "../components/Bar/Bar.types";
 import { green, grey, red } from "@mui/material/colors";
 import { ConditionBaseProps } from "../components/Condition/Condition.types";
+import StrongPasswordInput from '../components/StrongPasswordInput/StrongPasswordInput';
 
 export default { title: "StrongPasswordInput", component: StrongPasswordInput};
 
 export function DefaultStrongPassword() {
 
     return (
-        <StrongPasswordInput 
+        <StrongPasswordInput
             InputComponent={InputDefault}
             BarComponent={BarDefault}
             ConditionComponent={ConditionDefault}

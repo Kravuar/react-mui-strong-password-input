@@ -85,12 +85,12 @@ export default function StrongPasswordInput
 
   const finalStrongPasswordContainerProps: React.PropsWithChildren<StrongPasswordContainerComponentProps> = {
     children: [
-      <InputComponent {...finalInputComponentProps} />,
+      <InputComponent key={"spiInput"} {...finalInputComponentProps} />,
       showStrengthBar
-        ? <BarComponent {...finalBarComponentProps} />
+        ? <BarComponent key={"spiBar"} {...finalBarComponentProps} />
         : undefined,
       showConditions
-        ? <Conditions
+        ? <Conditions key={"spiConditions"}
             conditions={checkedConditions}
             ConditionComponent={ConditionComponent}
             ConditionContainerComponent={ConditionContainerComponent}
