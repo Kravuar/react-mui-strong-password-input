@@ -45,7 +45,8 @@ Only children are required (optional, actually) for the container
 |securityLevel|string|undefined|name of current security level|
 |satisfiedConditions|string[]|undefined|array of names of satisfied conditions|
 
-Main interface of the strong password input
+Main interface of the strong password input.
+Couldn't find a way to provide default values for the components -_-.
 ### StrongPasswordInput
 | Property | Type | Default | Description |
 |:---|:---|:---|:---|
